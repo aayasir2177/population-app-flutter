@@ -35,13 +35,13 @@ class _HomeScreenState extends State<HomeScreen> {
         body: Container(
           color: Colors.grey.shade900,
           width: double.infinity,
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+          padding: const EdgeInsets.all(24),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Text(
                 "Top 3",
-                style: TextStyle(fontSize: 18),
+                style: TextStyle(fontSize: 24),
               ),
               const SizedBox(
                 height: 10,
@@ -57,9 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     "China": 25,
                     "United States": 25,
                   }),
-              const SizedBox(
-                height: 30,
-              ),
+              const Spacer(),
               Column(
                 children: [
                   ElevatedButton.icon(
