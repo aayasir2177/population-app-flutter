@@ -1,6 +1,6 @@
-import 'package:covid_app/views/country_details_screen.dart';
+import 'package:covid_app/components/clickable_row.dart';
+import 'package:covid_app/services/get_countries.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class CountryListScreen extends StatefulWidget {
   const CountryListScreen({super.key});
@@ -51,30 +51,26 @@ class _CountryListScreenState extends State<CountryListScreen> {
               height: 10,
             ),
             Expanded(
-                child: ListView.builder(
+                child: FutureBuilder(
+              future: getCountries(),
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) {
+                  return const Center(
+                    child: CircularProgressIndicator.adaptive(),
+                  );
+                }
+
+                return ListView.builder(
                     itemCount: 50,
                     itemBuilder: (context, index) {
-                      return InkWell(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      const CountryDetailsScreen(
-                                        name: "Name here",
-                                      )));
-                        },
-                        child: const ListTile(
-                          leading: CircleAvatar(
-                            child: Text("Flag"),
-                          ),
-                          title: Text(
-                            "Country Name",
-                            style: TextStyle(color: Colors.white70),
-                          ),
-                        ),
-                      );
-                    }))
+                      final data = snapshot.data![index];
+                      return ClickableRow(
+                          name: "${data.name!.official}",
+                          population: "${data.population}",
+                          flag: "${data.flags!.png}");
+                    });
+              },
+            ))
           ],
         ),
       ),

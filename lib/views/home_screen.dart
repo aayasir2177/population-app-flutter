@@ -1,4 +1,4 @@
-import 'package:covid_app/components/clickable_row.dart';
+import 'package:covid_app/services/get_country.dart';
 import 'package:covid_app/views/country_list_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:pie_chart/pie_chart.dart';
@@ -11,6 +11,16 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  List<dynamic> population = [];
+  Future getPop() async {
+    population = await getCountry("pakistan");
+  }
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,9 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
           backgroundColor: Colors.greenAccent.shade400,
         ),
         body: Container(
-          decoration: BoxDecoration(
-            color: Colors.grey.shade900,
-          ),
+          color: Colors.grey.shade900,
           width: double.infinity,
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
           child: Column(
@@ -52,36 +60,8 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(
                 height: 30,
               ),
-              const Text(
-                "Peek View",
-                style: TextStyle(fontSize: 18),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
               Column(
                 children: [
-                  const SizedBox(
-                    height: 300,
-                    child: SingleChildScrollView(
-                        child: Column(
-                      children: [
-                        ClickableRow(name: "Pakistan"),
-                        ClickableRow(name: "Afghanistan"),
-                        ClickableRow(name: "Iran"),
-                        ClickableRow(name: "Turkey"),
-                        ClickableRow(name: "Canada"),
-                        ClickableRow(name: "Japan"),
-                        ClickableRow(name: "Russia"),
-                        ClickableRow(name: "Germany"),
-                        ClickableRow(name: "France"),
-                        ClickableRow(name: "Malaysia"),
-                      ],
-                    )),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
                   ElevatedButton.icon(
                       style: ButtonStyle(
                           backgroundColor: MaterialStatePropertyAll(

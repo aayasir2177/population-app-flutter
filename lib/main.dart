@@ -1,7 +1,12 @@
+// ignore_for_file: unused_import
+
+import 'dart:io';
+import 'package:covid_app/views/country_list_screen.dart';
 import 'package:covid_app/views/home_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
+  HttpOverrides.global = MyHttpOverrides();
   runApp(const MyApp());
 }
 
@@ -17,5 +22,14 @@ class MyApp extends StatelessWidget {
               const TextTheme(bodyMedium: TextStyle(color: Colors.white70))),
       home: const HomeScreen(),
     );
+  }
+}
+
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
   }
 }

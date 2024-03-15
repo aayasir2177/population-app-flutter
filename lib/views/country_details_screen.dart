@@ -3,7 +3,13 @@ import 'package:flutter/material.dart';
 
 class CountryDetailsScreen extends StatelessWidget {
   final String name;
-  const CountryDetailsScreen({super.key, required this.name});
+  final String population;
+  final String flag;
+  const CountryDetailsScreen(
+      {super.key,
+      required this.name,
+      required this.population,
+      required this.flag});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +33,7 @@ class CountryDetailsScreen extends StatelessWidget {
             CircleAvatar(
               minRadius: 50,
               maxRadius: 75,
-              child: Text(name),
+              backgroundImage: NetworkImage(flag),
             ),
             const SizedBox(
               height: 20,
@@ -37,7 +43,7 @@ class CountryDetailsScreen extends StatelessWidget {
               child: Column(
                 children: [
                   ResusableRow(dataTitle: "Country", dataValue: name),
-                  ResusableRow(dataTitle: "Population", dataValue: name)
+                  ResusableRow(dataTitle: "Population", dataValue: population)
                 ],
               ),
             )
